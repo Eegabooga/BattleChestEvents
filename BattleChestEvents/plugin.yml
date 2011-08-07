@@ -1,0 +1,15 @@
+name: BattleChestEvents
+version: 0.1
+author: Eegabooga
+
+description: This plugin allows a player to create a chest that spawns at a set time with set loot.
+
+main: net.thebattlecraft.eegabooga.BattleChestEvents.BattleChestEvents
+depend: [Permissions]
+#
+#commands:
+#   bce:
+#      description: Base command for the BattleChestEvent plugin.
+#      usage: |
+#           /<command>
+#
