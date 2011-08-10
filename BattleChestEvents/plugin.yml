@@ -10,6 +10,11 @@ commands:
         aliases: nce
         description: Set the chest event
         usage: /<command> <stuff> 
+commands:
+    cancelchestevent:
+        aliases: cce
+        description: Cancel the chest event
+        usage: /<command>
 
 #
 #commands:
