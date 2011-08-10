@@ -1,0 +1,38 @@
+
+timeToSpawnChestBeforeEvent: 15
+lengthOfEvent: 20
+
+### None, EveryHour, or Integer number (in # of seconds)
+scheduleAtIntervals: 40 
+
+### The %s will be replaced with the spawnLocation.name
+### You can create as many announcements as you want 
+### as long as they dont have the same time
+timerAnnouncements:
+  30: "Chest event will start at %s in 30 seconds!!"
+  15: "Chest event will start in 15 seconds at %s chest is spawning"
+  0: "Chest event at %s is happening!!"
+
+
+### Names must NOT contain commas
+spawnLocations:
+  - name: "West Portal [40:40:40]"
+    world: "world"
+    x: -160
+    y: 76
+    z: -96
+    randomizeQuantities: false
+    items:
+      - Diamond: 50
+      - Dirt: 3
+  - name: "East Portal yep"
+    world: "world"
+    x: -160
+    y: 78
+    z: -95
+    randomizeQuantities: true
+    items:
+      - Diamond: 50
+      - Glowstone: 30
+      - dirt: 10
+
