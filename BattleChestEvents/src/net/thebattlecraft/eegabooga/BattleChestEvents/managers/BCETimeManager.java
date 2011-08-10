@@ -19,9 +19,7 @@ public class BCETimeManager {
 	static long last = System.currentTimeMillis();
 	static final boolean DEBUG = false;
 	
-	static boolean eventsCanceled = false;
-	
-	public class EventTask extends TimerTask{
+	class EventTask extends TimerTask{
 		int progress =-1; BCETimeManager tm; ChestEvent ce;
 
 		EventTask(EventTask et){progress = et.progress;tm = et.tm; ce=et.ce;}
@@ -46,7 +44,6 @@ public class BCETimeManager {
 	}
 
 	public void progressEvent(EventTask eventTask) {
-		if(!eventsCanceled == true){
 		Timer t = new Timer();
 		ChestEvent ce = eventTask.ce;
 		Server server = BattleChestEvents.getBukkitServer();
@@ -58,25 +55,19 @@ public class BCETimeManager {
 		String nameOfEvent = ce.getName();
 		ScheduledTime ste = stes.get(progress);
 		
-		if(eventsCanceled == true)
-			ste.setMessage("The Chest Event has been canceled! Sorry!");
-		
 		String message = ste.getMessage();
-		
 		if (message != null)
 			server.broadcastMessage(formatMessage(message, nameOfEvent));
 
 		if (DEBUG) System.out.println(ste);
-		if (ste.isSpawn() && eventsCanceled == false){
+		if (ste.isSpawn()){
 			BCEChestManager.createChest(loc, ce.getItems());
 			BCEChestManager.lockChest(loc);
-		} else if (ste.isUnlock() && eventsCanceled == false){
+		} else if (ste.isUnlock()){
 			BCEChestManager.unLockChest(loc);
 		} else if (ste.isDespawn()){
 			BCEChestManager.removeChest(loc);
 		}
-		else
-			BCEChestManager.removeChest(loc);
 		if (progress + 1 < stes.size()){
 			/// Set our next timer
 			ste = stes.get(progress+1);
@@ -85,42 +76,9 @@ public class BCETimeManager {
 			t.schedule(new EventTask(eventTask), time);				
 		} else {
 			/// We are done
-			if(ste.isUnlock()) {
-				BCEChestManager.lockChest(loc);
-				BCEChestManager.removeChest(loc);
-			}
 			BattleChestEvents.freeEvent(ce);
-			
 		}
-		eventsCanceled = false;
-	}
-		// What to do if the event is canceled
-		else {
-			// Sorry about reused code, didn't want to break anything as this is just a quick change
-			Timer t = new Timer();
-			ChestEvent ce = eventTask.ce;
-			Server server = BattleChestEvents.getBukkitServer();
-			
-			ArrayList<ScheduledTime> stes = ce.getScheduledTimes();
-			int progress = eventTask.getProgress();
-			
-			Location loc = ce.getLocation();
-			String nameOfEvent = ce.getName();
-			ScheduledTime ste = stes.get(progress);
-			ste.setMessage("The Chest Event is canceled! Sorry!");
-			String message = ste.getMessage();
-			server.broadcastMessage(message);
-			/// We are done
-			BattleChestEvents.freeEvent(ce);
-			eventsCanceled = false;
-		}
-		eventsCanceled = false;
-	}
-	
-	
-	public static boolean cancelEvents(){
-		eventsCanceled = true;
-		return eventsCanceled;
+
 	}
 
 	public static String formatMessage(String msg, Object... varArgs) {

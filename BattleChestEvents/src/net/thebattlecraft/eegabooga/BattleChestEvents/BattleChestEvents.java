@@ -13,7 +13,6 @@ import net.thebattlecraft.eegabooga.BattleChestEvents.listeners.BCEPlayerListene
 import net.thebattlecraft.eegabooga.BattleChestEvents.listeners.BCEPluginListener;
 import net.thebattlecraft.eegabooga.BattleChestEvents.managers.BCEChestManager;
 import net.thebattlecraft.eegabooga.BattleChestEvents.managers.BCETimeManager;
-import net.thebattlecraft.eegabooga.BattleChestEvents.managers.BCETimeManager.EventTask;
 import net.thebattlecraft.eegabooga.BattleChestEvents.managers.CommandManager;
 import net.thebattlecraft.eegabooga.BattleChestEvents.managers.ConfigController;
 import net.thebattlecraft.eegabooga.BattleChestEvents.managers.PermissionManager;
@@ -56,8 +55,7 @@ public class BattleChestEvents extends JavaPlugin {
 	static LinkedList<ChestEvent> inactive_events = new LinkedList<ChestEvent>();
 	
 	public void onDisable() {
-		BCETimeManager.cancelEvents();
-		log.info(prefix()+"Plugin has been disabled.");		
+		log.info(prefix()+"Plugin has been disabled.");
 	}
 
 	public void onEnable() {

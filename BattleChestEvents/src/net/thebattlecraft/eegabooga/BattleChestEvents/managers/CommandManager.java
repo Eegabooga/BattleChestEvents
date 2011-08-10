@@ -35,11 +35,6 @@ public class CommandManager  {
 			}
 			
 		}
-		else if(commandStr.equalsIgnoreCase("cancelchestevent")){
-			BCETimeManager.cancelEvents();
-			player.sendMessage("Event has been canceled.");
-			return true;
-		}
 		return false;
 	}
 
